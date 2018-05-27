@@ -1,21 +1,47 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component,Fragment} from 'react';
+import { connect } from 'react-redux';
+import LoadingBar from 'react-redux-loading';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {handleGameInitialData} from './actions/shared';
 import './App.css';
-
+import QuestionDashBoard from './components/QuestionDashBoard';
+import LoginPage from "./components/LoginPage";
+import NavigationBar from "./components/NavagationBar";
 class App extends Component {
+    componentDidMount()
+    {
+        this.props.dispatch(handleGameInitialData());
+    }
+
   render() {
+      const {isFinishLoading} = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Router>
+            <Fragment>
+                <LoadingBar/>
+                {
+                    <div>
+                        <NavigationBar/>
+                        {
+                            isFinishLoading === true ?
+                                null :
+                                <div>
+                                    <Route path='/' exact component={QuestionDashBoard} />
+                                    <Route path='/login' exact component={LoginPage} />
+                                </div>
+                        }
+                    </div>
+                }
+            </Fragment>
+        </Router>
     );
   }
 }
 
-export default App;
+function mapStateToProps({languageData,processData}) {
+    return {
+        isFinishLoading: true
+    }
+}
+
+export default connect(mapStateToProps)(App);
