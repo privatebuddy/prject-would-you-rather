@@ -1,9 +1,17 @@
 import React, { Component} from 'react';
 import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom';
 
 class QuestionDashBoard extends Component {
 
     render() {
+        const {isLogin} = this.props;
+
+        if(isLogin === null)
+        {
+            return <Redirect to={'/login'}/>
+        }
+
         return(
             <div>
                 THIS IS QUEST DASH BOARD
@@ -14,7 +22,7 @@ class QuestionDashBoard extends Component {
 
 function mapStateToProps({questionData,userData}) {
     return {
-        isLogin: true
+        isLogin: userData.currentUser.id,
     }
 }
 

@@ -7,6 +7,7 @@ import './App.css';
 import QuestionDashBoard from './components/QuestionDashBoard';
 import LoginPage from "./components/LoginPage";
 import NavigationBar from "./components/NavagationBar";
+import CreateUserPage from './components/CreateUserPage';
 class App extends Component {
     componentDidMount()
     {
@@ -21,13 +22,15 @@ class App extends Component {
                 <LoadingBar/>
                 {
                     <div>
-                        <NavigationBar/>
+
                         {
                             isFinishLoading === true ?
                                 null :
                                 <div>
+                                    <NavigationBar/>
                                     <Route path='/' exact component={QuestionDashBoard} />
                                     <Route path='/login' exact component={LoginPage} />
+                                    <Route path='/create' exact component={CreateUserPage} />
                                 </div>
                         }
                     </div>
@@ -38,9 +41,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({languageData,processData}) {
+function mapStateToProps({userData,questionData}) {
     return {
-        isFinishLoading: true
+        isFinishLoading: userData.users === undefined,
     }
 }
 
