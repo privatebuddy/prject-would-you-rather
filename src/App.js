@@ -43,7 +43,7 @@ class App extends Component {
 
 function mapStateToProps({userData,questionData}) {
     return {
-        isFinishLoading: userData.users === undefined,
+        isFinishLoading: questionData.questions === undefined,
     }
 }
 

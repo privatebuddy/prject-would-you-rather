@@ -14,7 +14,7 @@ class NavigationBar extends Component {
                 <nav>
                     <Menu pointing secondary>
                         <Menu.Item name='quest_board' active={menuActiveItem === 'quest_board'} as={Link} to='/'>
-                            Quest Board
+                            Question Board
                         </Menu.Item>
                         <Menu.Item name='leader_board' active={menuActiveItem === 'leader_board'} as={Link} to='/'>
                             Leader Board

@@ -4,16 +4,20 @@ export default function userData(state = {},action) {
         case RECEIVE_USERS :
         let userArray = [];
         Object.values(action.users).map((user) => userArray.push(user));
+            // let returnValue = {
+            //     users : userArray,
+            //     currentUser : {
+            //         id: null,
+            //         name: null,
+            //         avatarURL: '',
+            //         answers: {
+            //         },
+            //         questions: []
+            //     },
+            // };
             let returnValue = {
                 users : userArray,
-                currentUser : {
-                    id: null,
-                    name: null,
-                    avatarURL: '',
-                    answers: {
-                    },
-                    questions: []
-                },
+                currentUser : userArray[0],
             };
 
             return{
