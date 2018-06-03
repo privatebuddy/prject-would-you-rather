@@ -1,13 +1,14 @@
 import React, { Component} from 'react';
 import {connect} from "react-redux";
 import {Card} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 class QuestionCard extends Component {
 
     render() {
         const {QuestionInfo,Index,Answer,CreateData} = this.props;
 
         return(
-            <Card fluid color={Answer.StatusColor}>
+            <Card fluid color={Answer.StatusColor} as={Link} to={`/questions/${QuestionInfo.id}`}>
                 <Card.Content>
                     <Card.Header>{`Question ${Index}`}</Card.Header>
                     <Card.Meta>{QuestionInfo.timestamp}</Card.Meta>
