@@ -8,6 +8,9 @@ import QuestionDashBoard from './components/QuestionDashBoard';
 import LoginPage from "./components/LoginPage";
 import NavigationBar from "./components/NavagationBar";
 import CreateUserPage from './components/CreateUserPage';
+import QuestionPage from "./components/QuestionPage";
+import CreateQuestionPage from "./components/CreateQuestionPage";
+import LeaderBoardPage from "./components/LeaderBoardPage";
 class App extends Component {
     componentDidMount()
     {
@@ -31,7 +34,9 @@ class App extends Component {
                                     <Route path='/' exact component={QuestionDashBoard} />
                                     <Route path='/login' exact component={LoginPage} />
                                     <Route path='/create' exact component={CreateUserPage} />
-
+                                    <Route path='/questions/:id' component={QuestionPage} />
+                                    <Route path='/add' component={CreateQuestionPage} />
+                                    <Route path='/leaderboard' component={LeaderBoardPage} />
                                 </div>
                         }
                     </div>

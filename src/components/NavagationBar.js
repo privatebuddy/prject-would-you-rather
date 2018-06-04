@@ -4,19 +4,22 @@ import {Link} from 'react-router-dom';
 import { Menu ,Image} from 'semantic-ui-react';
 import getImageName from '../Images/ImageManager';
 class NavigationBar extends Component {
+    state = { activeItem: 'quest_board' };
 
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
     render()
     {
-        const{menuActiveItem,imagePath,isLogin}=this.props;
+        const {activeItem} = this.state;
+        const{imagePath,isLogin}=this.props;
         if(isLogin)
         {
             return (
                 <nav>
                     <Menu pointing secondary>
-                        <Menu.Item name='quest_board' active={menuActiveItem === 'quest_board'} as={Link} to='/'>
+                        <Menu.Item name='quest_board' active={activeItem === 'quest_board'} onClick={this.handleItemClick} as={Link} to='/'>
                             Question Board
                         </Menu.Item>
-                        <Menu.Item name='leader_board' active={menuActiveItem === 'leader_board'} as={Link} to='/'>
+                        <Menu.Item name='leader_board' active={activeItem === 'leader_board'} onClick={this.handleItemClick} as={Link} to='/leaderboard'>
                             Leader Board
                         </Menu.Item>
                         <Menu.Menu position='right'>
@@ -40,7 +43,6 @@ class NavigationBar extends Component {
 function mapStateToProps({userData}) {
     return{
         isLogin:userData.currentUser.id,
-        menuActiveItem: 'quest_board',
         imagePath: userData.currentUser.avatarURL,
         userName: userData.name
     }

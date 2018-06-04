@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {connect} from "react-redux";
-import {Redirect} from 'react-router-dom';
-import {Card,Header,Menu,Dropdown} from 'semantic-ui-react';
+import {Link, Redirect} from 'react-router-dom';
+import {Card,Header,Menu,Dropdown,Button} from 'semantic-ui-react';
 import QuestionCard from './QuestionCard';
 import {applyFilterToQuestion} from '../actions/gamestate'
 class QuestionDashBoard extends Component {
@@ -29,6 +29,9 @@ class QuestionDashBoard extends Component {
                 <Menu>
                     <Menu.Item>
                         <Header as='h2' textAlign='center'>Dash Board</Header>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Button as={Link} to='/add'>Create New Question</Button>
                     </Menu.Item>
                     <Menu.Menu position='right'>
                         <Menu.Item>

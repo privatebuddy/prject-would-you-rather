@@ -113,7 +113,7 @@ let questions = {
       text: 'write Swift'
     }
   },
-}
+};
 
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -123,6 +123,12 @@ export function _getUsers () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...users}), 1000)
   })
+}
+
+export function _updateUsers (user)
+{
+  users = {...users,[user.id]: user};
+  console.log(users)
 }
 
 export function _getQuestions () {
@@ -157,6 +163,7 @@ export function _saveQuestion (question) {
         ...questions,
         [formattedQuestion.id]: formattedQuestion
       };
+
       
       users = {
         ...users,
@@ -184,7 +191,7 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
           }
         }
       }
-
+        console.log(users);
       questions = {
         ...questions,
         [qid]: {
