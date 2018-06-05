@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {connect} from "react-redux";
 import {Link, Redirect} from 'react-router-dom';
-import {Card,Header,Menu,Dropdown,Button} from 'semantic-ui-react';
+import {Card,Header,Menu,Dropdown,Button,Grid} from 'semantic-ui-react';
 import QuestionCard from './QuestionCard';
 import {applyFilterToQuestion} from '../actions/gamestate'
 class QuestionDashBoard extends Component {
@@ -39,11 +39,31 @@ class QuestionDashBoard extends Component {
                         </Menu.Item>
                     </Menu.Menu>
                 </Menu>
-                <Card.Group>
-                    {
-                        allQuestions.length > 0 ? allQuestions.map((question,index) => <QuestionCard key={index} index={index+1} id={question.id}/>) : null
-                    }
-                </Card.Group>
+                <Grid columns={2} divided>
+                    <Grid.Row>
+                        <Grid.Column>
+                            {
+                                allQuestions.Answer.length > 0 ? <Header as='h3' textAlign='center'>Answer</Header> : null
+                            }
+                            <Card.Group>
+                                {
+                                    allQuestions.Answer.length > 0 ? allQuestions.Answer.map((question,index) => <QuestionCard key={index} index={index+1} id={question.id}/>) : null
+                                }
+                            </Card.Group>
+                        </Grid.Column>
+                        <Grid.Column>
+                            {
+                                allQuestions.UnAnswer.length > 0 ? <Header as='h3' textAlign='center'>UnAnswer</Header> : null
+                            }
+                            <Card.Group>
+
+                                {
+                                    allQuestions.UnAnswer.length > 0 ? allQuestions.UnAnswer.map((question,index) => <QuestionCard key={index} index={index+1} id={question.id}/>) : null
+                                }
+                            </Card.Group>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </div>
         );
     }
@@ -81,7 +101,10 @@ function applyFilterQuestion(filterCode,questions,currentUser) {
                     }
                 }
 
-                return answers.concat(unAnswerQuestions);
+                return {
+                    Answer : answers,
+                    UnAnswer : []
+                }
             }else {
                 return sortQuestions;
             }
@@ -113,8 +136,10 @@ function applyFilterQuestion(filterCode,questions,currentUser) {
                     }
                 }
 
-
-                return unAnswerQuestions.concat(answers);
+                return {
+                    Answer : [],
+                    UnAnswer : unAnswerQuestions
+                };
             }else {
                 return sortQuestions;
             }
@@ -123,13 +148,70 @@ function applyFilterQuestion(filterCode,questions,currentUser) {
             sortQuestions.sort((questionA,questionB) => {
                 return questionB.timestamp - questionA.timestamp;
             });
-            return sortQuestions;
+
+            if(currentUser.answers != null)
+            {
+                const answers = Object.keys(currentUser.answers).map(key => sortQuestions.find((question) => question.id === key));
+                let unAnswerQuestions = [];
+                for (let i = 0;i<sortQuestions.length;i++)
+                {
+                    const question = sortQuestions[i];
+                    let isAlreadyAnswer = false;
+                    for (let j = 0;j<answers.length;j++)
+                    {
+                        if(question.id === answers[j].id)
+                        {
+                            isAlreadyAnswer = true;
+                        }
+                    }
+
+                    if(!isAlreadyAnswer)
+                    {
+                        unAnswerQuestions.push(question);
+                    }
+                }
+
+                return {
+                    Answer : answers,
+                    UnAnswer : unAnswerQuestions
+                };
+            }else {
+                return sortQuestions;
+            }
         case 4:
             sortQuestions = questions.slice(0);
             sortQuestions.sort((questionA,questionB) => {
                 return questionA.timestamp - questionB.timestamp;
             });
-            return sortQuestions;
+            if(currentUser.answers != null)
+            {
+                const answers = Object.keys(currentUser.answers).map(key => sortQuestions.find((question) => question.id === key));
+                let unAnswerQuestions = [];
+                for (let i = 0;i<sortQuestions.length;i++)
+                {
+                    const question = sortQuestions[i];
+                    let isAlreadyAnswer = false;
+                    for (let j = 0;j<answers.length;j++)
+                    {
+                        if(question.id === answers[j].id)
+                        {
+                            isAlreadyAnswer = true;
+                        }
+                    }
+
+                    if(!isAlreadyAnswer)
+                    {
+                        unAnswerQuestions.push(question);
+                    }
+                }
+
+                return {
+                    Answer : answers,
+                    UnAnswer : unAnswerQuestions
+                };
+            }else {
+                return sortQuestions;
+            }
         default:
             return questions;
     }

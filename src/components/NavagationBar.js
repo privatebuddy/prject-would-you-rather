@@ -3,14 +3,18 @@ import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import { Menu ,Image} from 'semantic-ui-react';
 import getImageName from '../Images/ImageManager';
+import {logoutUser} from "../actions/users";
 class NavigationBar extends Component {
     state = { activeItem: 'quest_board' };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+    handleLogOut = (e) =>{
+        this.props.dispatch(logoutUser());
+    };
     render()
     {
         const {activeItem} = this.state;
-        const{imagePath,isLogin}=this.props;
+        const{imagePath,isLogin,userName}=this.props;
         if(isLogin)
         {
             return (
@@ -23,10 +27,12 @@ class NavigationBar extends Component {
                             Leader Board
                         </Menu.Item>
                         <Menu.Menu position='right'>
-                            <Menu.Item name='logout' />
-                            <Menu.Item name='logout'>
+                            <Menu.Item name='logout' onClick={this.handleLogOut} />
+                            <Menu.Item>
                                 <Image src={getImageName(imagePath)} avatar/>
-                                <span>{}</span>
+                            </Menu.Item>
+                            <Menu.Item>
+                                {userName}
                             </Menu.Item>
                         </Menu.Menu>
                     </Menu>
@@ -44,7 +50,7 @@ function mapStateToProps({userData}) {
     return{
         isLogin:userData.currentUser.id,
         imagePath: userData.currentUser.avatarURL,
-        userName: userData.name
+        userName: userData.currentUser.name
     }
 }
 

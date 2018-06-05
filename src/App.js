@@ -1,7 +1,7 @@
 import React, { Component,Fragment} from 'react';
 import { connect } from 'react-redux';
 import LoadingBar from 'react-redux-loading';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route ,Redirect} from 'react-router-dom';
 import {handleGameInitialData} from './actions/shared';
 import './App.css';
 import QuestionDashBoard from './components/QuestionDashBoard';
@@ -37,6 +37,7 @@ class App extends Component {
                                     <Route path='/questions/:id' component={QuestionPage} />
                                     <Route path='/add' component={CreateQuestionPage} />
                                     <Route path='/leaderboard' component={LeaderBoardPage} />
+                                    <Redirect from="/*" to="/login" />
                                 </div>
                         }
                     </div>

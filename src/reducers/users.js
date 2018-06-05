@@ -1,4 +1,4 @@
-import {RECEIVE_USERS, CREATE_USER, LOGIN_USER,UPDATE_USER} from "../actions/users";
+import {RECEIVE_USERS, CREATE_USER, LOGIN_USER, UPDATE_USER, LOGOUT_USER} from "../actions/users";
 import {_updateUsers} from '../Data/_DATA';
 export default function userData(state = {},action) {
     switch (action.type){
@@ -63,6 +63,18 @@ export default function userData(state = {},action) {
                 return action.users[key];
             });
             state.currentUser = state.users.find((user) => user.id === state.currentUser.id);
+            return{
+                ...state,
+            };
+        case LOGOUT_USER :
+            state.currentUser ={
+            id: null,
+                name: null,
+                avatarURL: '',
+                answers: {
+            },
+            questions: []};
+
             return{
                 ...state,
             };
