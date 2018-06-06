@@ -1,4 +1,4 @@
-import {RECEIVE_QUESTIONS} from '../actions/questions';
+import {RECEIVE_QUESTIONS,UPDATE_QUESTIONS} from '../actions/questions';
 
 export default function questionData(state = {},action) {
     switch (action.type){
@@ -10,6 +10,14 @@ export default function questionData(state = {},action) {
                 questions : returnQuestions,
             };
 
+            return{
+                ...state,
+                ...returnValue
+            };
+        case UPDATE_QUESTIONS :
+            state.questions = Object.keys(action.questions).map(key => {
+                return action.questions[key];
+            });
             return{
                 ...state,
                 ...returnValue
