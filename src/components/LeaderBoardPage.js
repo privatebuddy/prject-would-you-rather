@@ -23,8 +23,8 @@ class LeaderBoardPage extends Component {
                                 <Image floated='left' size='tiny' src={getImageName(user.UserData.avatarURL)} />
                                 <Card.Header>{`${user.UserData.name}`}
                                     <Card.Description textAlign='right'>{`Total Score : ${user.TotalScore}`}</Card.Description>
-                                    <Card.Description textAlign='right'>{`Questions Asked : ${user.AnswerQuestions}`}</Card.Description>
-                                    <Card.Description textAlign='right'>{`Questions Answers : ${user.QuestionsAsked}`}</Card.Description></Card.Header>
+                                    <Card.Description textAlign='right'>{`Questions Asked : ${user.QuestionsAsked}`}</Card.Description>
+                                    <Card.Description textAlign='right'>{`Questions Answers : ${user.AnswerQuestions}`}</Card.Description></Card.Header>
 
                             </Card.Content>
                         </Card>)
